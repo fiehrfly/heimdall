@@ -1,0 +1,20 @@
+__pycache__/
+*.pyc
+*.egg-info/
+build/
+dist/
+.venv/
+venv/
+.pytest_cache/
+*.sqlite
+heimdall-backup-*/
+heimdall-*-passwords.csv
+
+# never commit data, exports, or index artifacts
+*.csv
+Login Data
+key4.db
+logins.json
+ruvector.db
+*.db
+*.index
