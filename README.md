@@ -23,11 +23,45 @@ What can **not** cross the engine boundary: cookies/sessions (you'll re-log in �
 the passwords cover that) and extensions (Chromium and Firefox use different
 add-on stores). Heimdall doesn't pretend otherwise.
 
+## Prerequisites
+
+**All platforms**
+
+- **Python 3.9 or newer** and `pip`
+- Both browsers installed locally with the profiles you want to migrate (the
+  source Chromium profile and the target Firefox profile)
+- Quit the **target** browser before running with `--apply`
+
+**macOS — Apple Silicon *and* Intel (identical requirements)**
+
+- Python 3.9+ — the preinstalled `python3`, or from [python.org](https://www.python.org/downloads/macos/) or Homebrew (`brew install python`)
+- For the `--passwords` toggle: `pip install '.[passwords]'`. This pulls
+  [`cryptography`](https://pypi.org/project/cryptography/), which ships prebuilt
+  wheels for **both arm64 and x86_64** — so **no Rosetta, Xcode, or Rust toolchain
+  is needed on Intel**. On first run you'll get a one-time macOS Keychain prompt to
+  read the browser's "Safe Storage" key.
+- Nothing about Intel vs Apple Silicon changes the steps.
+
+**Linux**
+
+- Python 3.9+ and `pip` (e.g. `sudo apt install python3 python3-pip`)
+- Bookmarks + history are fully supported.
+- **Passwords: not yet supported.** Export them from the source browser's own
+  password manager and import that CSV into Firefox via `about:logins`.
+
+**Windows**
+
+- Python 3.9+ from [python.org](https://www.python.org/downloads/windows/) (tick
+  *"Add python.exe to PATH"* during install)
+- Bookmarks + history are supported.
+- **Passwords: not yet supported** (Windows DPAPI decryption is TODO) — use the
+  source browser's own export.
+
 ## Install
 
 ```bash
-pip install -e .            # core (bookmarks + history)
-pip install -e '.[passwords]'   # adds 'cryptography' for the passwords toggle
+pip install -e .                # core (bookmarks + history)
+pip install -e '.[passwords]'   # adds 'cryptography' for the passwords toggle (macOS)
 ```
 
 ## Usage
